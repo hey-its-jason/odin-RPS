@@ -1,9 +1,9 @@
 console.log("Hi");
 
 
-const options = ["rock", "paper", "scissor"];  //1. Game choices
+const options = ["rock", "paper", "scissors"];  
 
-function getComputerChoice(){ //2. Computer chooses
+function getComputerChoice(){ 
     const choice = options[Math.floor(Math.random() * options.length)];
     return choice;
 }
@@ -13,9 +13,9 @@ function winner(playerSelection, computerSelection){
         return "Tie";
     }
     else if(
-        (playerSelection == "rock" && computerSelection == "scissor") ||
+        (playerSelection == "rock" && computerSelection == "scissors") ||
         (playerSelection == "paper" && computerSelection == "rock") ||
-        (playerSelection == "scissor" && computerSelection == "paper")
+        (playerSelection == "scissors" && computerSelection == "paper")
     ){
         return "Player";
     }
@@ -24,8 +24,8 @@ function winner(playerSelection, computerSelection){
     }
 }
 
-function playRound(playertSelection, computerSelection){
-    const result = winner(playertSelection, computerSelection);
+function playRound(playerSelection, computerSelection){
+    const result = winner(playerSelection, computerSelection);
         if(result == "Tie"){
             return "DRAW!"
     }
@@ -33,19 +33,61 @@ function playRound(playertSelection, computerSelection){
             return `Player wins! ${playerSelection} beats ${computerSelection}`
     }
         else if(result == "Computer"){
-            return `Computer wins! ${computerSelection} beats ${playertSelection}`
+            return `Computer wins! ${computerSelection} beats ${playerSelection}`
     }
 
 }
 
-const playerSelection = "rock";
-const computerSelection = "paper";
-console.log(playRound(playerSelection, computerSelection));
+// const playerSelection = "rock";
+// const computerSelection = "paper";
+// console.log(playRound(playerSelection, computerSelection));
+
+function getPlayerChoice(){
+    let validatedInput = false;
+    while(validatedInput == false){
+        const choice = prompt("Rock, paper or scissors");
+        if (choice == null){
+            continue;
+        }
+        const choiceInLower = choice.toLowerCase();
+        if(options.includes(choiceInLower)){
+            validatedInput = true;
+            return choiceInLower;
+        }
+    }
+}
+
+
+function game(){
+    let scorePlayer = 0;
+    let scoreComputer = 0;
+    console.log("Lets play!")
+    for (let i = 0; i < 5; i++){
+        const playerSelection = getPlayerChoice();
+        const computerSelection = getComputerChoice();
+        console.log(playRound(playerSelection, computerSelection));
+        if (winner(playerSelection, computerSelection) == "Player"){
+            scorePlayer++;
+        } 
+        else if(winner(playerSelection, computerSelection) == "Computer"){
+            scoreComputer++;
+        }
+    }
+    console.log("Game Over!")
+    if(scorePlayer > scoreComputer){
+        console.log("Player Wins!");
+    }
+    else if(scoreComputer > scorePlayer){
+        console.log("Computer Wins!");
+    }
+    else{
+        console.log("DRAW!");
+    }
+
+}
+
+game()
 
 
 
 //getComputerChoice();
-//3. Player chooses
-//4. Randomize choices
-//5. Who 
-//6. Reset game
